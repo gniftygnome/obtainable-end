@@ -1,31 +1,35 @@
 {
 	"schemaVersion": 1,
-	"id": "modid",
+	"id": "obtainable-end",
 	"version": "${version}",
-	"name": "Example mod",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"name": "Obtainable End",
+	"description": "Make end portals obtainable in survival",
 	"authors": [
-		"Me!"
+		"GniftyGnome"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "http://www.gnomecraft.net/",
+		"sources": "https://github.com/gniftygnome/obtainable-end"
 	},
-	"license": "CC0-1.0",
-	"icon": "assets/modid/icon.png",
+	"license": "MIT",
+	"icon": "assets/obtainable-end/icon.png",
 	"environment": "*",
 	"entrypoints": {
-		"main": [
-			"com.example.ExampleMod"
-		],
 		"client": [
-			"com.example.ExampleModClient"
+			"net.gnomecraft.obtainableend.ObtainableEndClient"
+		],
+		"main": [
+			"net.gnomecraft.obtainableend.ObtainableEnd"
+		],
+		"fabric-datagen": [
+			"net.gnomecraft.obtainableend.data.ObtainableEndDatagen"
 		]
 	},
+	"accessWidener": "obtainable-end.accesswidener",
 	"mixins": [
-		"modid.mixins.json",
+      "obtainable-end.mixins.json",
 		{
-			"config": "modid.client.mixins.json",
+			"config": "obtainable-end.client.mixins.json",
 			"environment": "client"
 		}
 	],
@@ -34,8 +38,5 @@
 		"minecraft": "~1.20.1",
 		"java": ">=17",
 		"fabric-api": "*"
-	},
-	"suggests": {
-		"another-mod": "*"
 	}
 }

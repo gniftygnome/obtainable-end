@@ -1,9 +1,24 @@
-# Fabric Example Mod
+![icon](./src/main/resources/assets/obtainable-end/icon.png)
 
-## Setup
+# Obtainable End
+Make end portals obtainable in survival.
 
-For setup instructions please see the [fabric wiki page](https://fabricmc.net/wiki/tutorial:setup) that relates to the IDE that you are using.
+You do not need to ask me in order to use this mod in a modpack or to use
+this code in your own mod.  However, I would love to hear about it so I can
+check it out.
 
-## License
+See [the wiki](https://github.com/gniftygnome/obtainable-end/wiki) for configuration and details.
 
-This template is available under the CC0 license. Feel free to learn from it and incorporate it in your own projects.
+## What does Obtainable End do?
+Currently implemented features:
+* Add a recipe for End Portal Frame pieces (requires a Nether Star and End Stone).
+* Allow players to break End Portal Frame pieces (slowly, like Obsidian).
+* Break associated End Portal blocks when an End Portal Frame piece is broken.
+* Make End Portal Frames easier to place by correcting orientation when complete.
+* Generate a global sound indicating a new End Portal Frame has been completed.
+
+## What might Obtainable End do eventually?
+Currently planned features:
+* (none at the moment)
+
+Suggestions are welcome.
