@@ -1,5 +1,6 @@
 package net.gnomecraft.obtainableend.mixin;
 
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Blocks;
 import org.spongepowered.asm.mixin.Mixin;
@@ -14,6 +15,6 @@ public class MixinBlocks {
      */
     @ModifyArg(method="<clinit>", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/EndPortalFrameBlock;<init>(Lnet/minecraft/block/AbstractBlock$Settings;)V"))
     private static AbstractBlock.Settings obtainableend$breakableFrames(AbstractBlock.Settings settings) {
-        return settings.strength(50.0f, 3600000.0f);
+        return FabricBlockSettings.copyOf(settings).strength(50.0f, 3600000.0f).drops(null);
     }
 }

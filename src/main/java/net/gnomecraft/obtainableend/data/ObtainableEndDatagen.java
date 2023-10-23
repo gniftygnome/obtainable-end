@@ -8,6 +8,8 @@ public class ObtainableEndDatagen implements DataGeneratorEntrypoint {
     public void onInitializeDataGenerator(FabricDataGenerator dataGenerator) {
         FabricDataGenerator.Pack pack = dataGenerator.createPack();
 
+        pack.addProvider(ObtainableEndBlockLootTableProvider::new);
+        pack.addProvider(ObtainableEndBlockTagProvider::new);
         pack.addProvider(ObtainableEndRecipeProvider::new);
     }
 }
