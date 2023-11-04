@@ -23,6 +23,9 @@
 		],
 		"fabric-datagen": [
 			"net.gnomecraft.obtainableend.data.ObtainableEndDatagen"
+		],
+		"modmenu": [
+			"net.gnomecraft.obtainableend.config.ObtainableEndModMenuApiImpl"
 		]
 	},
 	"accessWidener": "obtainable-end.accesswidener",

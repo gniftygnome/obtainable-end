@@ -1,7 +1,10 @@
 package net.gnomecraft.obtainableend;
 
+import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer;
 import net.fabricmc.api.ModInitializer;
 
+import net.gnomecraft.obtainableend.config.ObtainableEndConfig;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
@@ -17,6 +20,13 @@ public class ObtainableEnd implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		// Register the mod's config
+		AutoConfig.register(ObtainableEndConfig.class, Toml4jConfigSerializer::new);
+
 		LOGGER.info("End Portals shall be Obtainable by the masses!");
+	}
+
+	public static ObtainableEndConfig getConfig() {
+		return AutoConfig.getConfigHolder(ObtainableEndConfig.class).getConfig();
 	}
 }
