@@ -11,4 +11,6 @@ public class ObtainableEndConfig implements ConfigData {
     //@ConfigEntry.Gui.PrefixText
     //@ConfigEntry.Gui.Tooltip
     public Boolean completionSound = true;
+
+    public Boolean frameIsWitherImmune = false;
 }
