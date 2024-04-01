@@ -3,8 +3,8 @@ package net.gnomecraft.obtainableend.tags;
 import com.google.common.collect.Maps;
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.tag.TagManagerLoader;
+import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.tag.TagManagerLoader;
 
 import java.util.List;
 import java.util.Map;

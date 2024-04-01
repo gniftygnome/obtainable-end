@@ -1,7 +1,7 @@
 package net.gnomecraft.obtainableend.mixin;
 
 import net.gnomecraft.obtainableend.tags.TagsLoadedEvent;
-import net.minecraft.registry.tag.TagManagerLoader;
+import net.minecraft.tag.TagManagerLoader;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.resource.ResourceReloader;
 import net.minecraft.util.profiler.Profiler;
