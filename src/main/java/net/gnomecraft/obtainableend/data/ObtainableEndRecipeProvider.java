@@ -1,26 +1,22 @@
 package net.gnomecraft.obtainableend.data;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
-import net.gnomecraft.obtainableend.ObtainableEnd;
 import net.minecraft.advancement.criterion.InventoryChangedCriterion;
-import net.minecraft.data.server.recipe.RecipeExporter;
+import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
 import net.minecraft.item.Items;
-import net.minecraft.recipe.book.RecipeCategory;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.util.Identifier;
-
-import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
 
 public class ObtainableEndRecipeProvider extends FabricRecipeProvider {
-    public ObtainableEndRecipeProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
-        super(output);
+    public ObtainableEndRecipeProvider(FabricDataGenerator dataGenerator) {
+        super(dataGenerator);
+        //TODO Auto-generated constructor stub
     }
 
     @Override
-    public void generate(RecipeExporter exporter) {
-        new ShapedRecipeJsonBuilder(RecipeCategory.DECORATIONS, Items.END_PORTAL_FRAME, 4)
+    protected void generateRecipes(Consumer<RecipeJsonProvider> exporter) {
+        new ShapedRecipeJsonBuilder(Items.END_PORTAL_FRAME, 4)
                 .pattern("IEI")
                 .pattern("ESE")
                 .pattern("IEI")
@@ -29,10 +25,5 @@ public class ObtainableEndRecipeProvider extends FabricRecipeProvider {
                 .input('S', Items.NETHER_STAR)
                 .criterion("has_end_stone", InventoryChangedCriterion.Conditions.items(Items.END_STONE))
                 .offerTo(exporter);
-    }
-
-    @Override
-    protected Identifier getRecipeIdentifier(Identifier identifier) {
-        return Identifier.of(ObtainableEnd.MOD_ID, identifier.getPath());
     }
 }

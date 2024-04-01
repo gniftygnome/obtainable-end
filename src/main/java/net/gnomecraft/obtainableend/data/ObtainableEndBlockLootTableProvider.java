@@ -1,6 +1,6 @@
 package net.gnomecraft.obtainableend.data;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.EndPortalFrameBlock;
@@ -14,30 +14,28 @@ import net.minecraft.predicate.StatePredicate;
 import java.util.List;
 
 public class ObtainableEndBlockLootTableProvider extends FabricBlockLootTableProvider {
-    protected ObtainableEndBlockLootTableProvider(FabricDataOutput dataOutput) {
-        super(dataOutput);
-    }
+  protected ObtainableEndBlockLootTableProvider(FabricDataGenerator dataGenerator) {
+    super(dataGenerator);
+  }
 
-    @Override
-    public void generate() {
-        // Always drop one End Stone (the gating factor to crafting End Portal Frame pieces).
-        // Drop an Ender Eye if there was one in the End Portal Frame piece.
-        addDrop(Blocks.END_PORTAL_FRAME, LootTable.builder()
-                .pools(List.of(
-                        LootPool.builder()
-                                .with(ItemEntry.builder(Items.END_STONE))
-                                .build(),
-                        LootPool.builder()
-                                .with(ItemEntry.builder(Items.ENDER_EYE)
-                                        .conditionally(BlockStatePropertyLootCondition.builder(Blocks.END_PORTAL_FRAME)
-                                                .properties(StatePredicate.Builder.create()
-                                                        .exactMatch(EndPortalFrameBlock.EYE, true)
-                                                )
-                                        )
-                                )
-                                .build()
-                        )
-                )
-        );
-    }
+  @Override
+  protected void generateBlockLootTables() {
+    // Always drop one End Stone (the gating factor to crafting End Portal Frame
+    // pieces).
+    // Drop an Ender Eye if there was one in the End Portal Frame piece.
+    addDrop(Blocks.END_PORTAL_FRAME, LootTable.builder()
+        .pools(List.of(
+            LootPool.builder()
+                .with(ItemEntry.builder(Items.END_STONE))
+                .build(),
+            LootPool.builder()
+                .with(ItemEntry.builder(Items.ENDER_EYE)
+                    .conditionally(BlockStatePropertyLootCondition
+                        .builder(Blocks.END_PORTAL_FRAME)
+                        .properties(StatePredicate.Builder
+                            .create()
+                            .exactMatch(EndPortalFrameBlock.EYE,
+                                true))))
+                .build())));
+  }
 }
