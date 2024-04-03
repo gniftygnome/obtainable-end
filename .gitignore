@@ -41,4 +41,3 @@ replay_*.log
 
 # Datagen
 src/main/generated/
-remappedSrc/

@@ -8,7 +8,6 @@ import net.minecraft.tag.BlockTags;
 public class ObtainableEndBlockTagProvider extends FabricTagProvider.BlockTagProvider {
     protected ObtainableEndBlockTagProvider(FabricDataGenerator dataGenerator) {
         super(dataGenerator);
-        //TODO Auto-generated constructor stub
     }
 
     @Override
