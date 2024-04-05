@@ -2,7 +2,6 @@ package net.gnomecraft.obtainableend.data;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
-import net.gnomecraft.obtainableend.ObtainableEnd;
 import net.minecraft.advancement.criterion.InventoryChangedCriterion;
 import net.minecraft.data.server.recipe.RecipeExporter;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
@@ -15,7 +14,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class ObtainableEndRecipeProvider extends FabricRecipeProvider {
     public ObtainableEndRecipeProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
-        super(output);
+        super(output, registriesFuture);
     }
 
     @Override
@@ -28,11 +27,12 @@ public class ObtainableEndRecipeProvider extends FabricRecipeProvider {
                 .input('I', Items.ENDER_EYE)
                 .input('S', Items.NETHER_STAR)
                 .criterion("has_end_stone", InventoryChangedCriterion.Conditions.items(Items.END_STONE))
-                .offerTo(exporter);
+                .offerTo(exporter, new Identifier("end_portal_frame"));
     }
 
     @Override
     protected Identifier getRecipeIdentifier(Identifier identifier) {
-        return Identifier.of(ObtainableEnd.MOD_ID, identifier.getPath());
+        // For this mod, we need to generate recipes and advancements in the minecraft namespace.
+        return identifier;
     }
 }

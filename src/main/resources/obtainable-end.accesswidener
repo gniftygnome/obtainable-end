@@ -1,2 +1,3 @@
-accessWidener   v1  named
+accessWidener   v2  named
 
+transitive-accessible  field  net/minecraft/block/AbstractBlock$Settings lootTableKey Lnet/minecraft/registry/RegistryKey;

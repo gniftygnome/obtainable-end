@@ -1,18 +1,19 @@
 package net.gnomecraft.obtainableend.net;
 
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.Identifier;
 
 public class ObtainableEndServerNetworking {
-    public static void sendGlobalEvent(MinecraftServer server, Identifier eventId) {
+    public static void init() {
+        PayloadTypeRegistry.playS2C().register(EndFrameCompletionS2CPacket.ID, EndFrameCompletionS2CPacket.CODEC);
+    }
+
+    public static void sendEndFrameCompleteEvent(MinecraftServer server) {
         for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
-            PacketByteBuf buf = PacketByteBufs.create();
-            if (ServerPlayNetworking.canSend(player, eventId)) {
-                ServerPlayNetworking.send(player, eventId, buf);
+            if (ServerPlayNetworking.canSend(player, EndFrameCompletionS2CPacket.ID)) {
+                ServerPlayNetworking.send(player, new EndFrameCompletionS2CPacket(player.getUuid()));
             }
         }
     }

@@ -1,11 +1,7 @@
 package net.gnomecraft.obtainableend.mixin;
 
-import net.gnomecraft.obtainableend.ObtainableEnd;
 import net.gnomecraft.obtainableend.net.ObtainableEndServerNetworking;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.EndPortalFrameBlock;
+import net.minecraft.block.*;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
@@ -15,11 +11,15 @@ import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 import java.util.Map;
 
 @Mixin(EndPortalFrameBlock.class)
 public abstract class MixinEndPortalFrameBlock extends Block {
+    @Unique
     private static final Map<Vec3i, Direction> PORTAL_POSITIONS = Map.ofEntries(
             Map.entry(new Vec3i(-1, 0, -2), Direction.SOUTH),
             Map.entry(new Vec3i( 0, 0, -2), Direction.SOUTH),
@@ -37,6 +37,17 @@ public abstract class MixinEndPortalFrameBlock extends Block {
 
     public MixinEndPortalFrameBlock(Settings settings) {
         super(settings);
+    }
+
+    @ModifyArg(method="<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/Block;<init>(Lnet/minecraft/block/AbstractBlock$Settings;)V"))
+    private static AbstractBlock.Settings obtainableend$breakableFrames(AbstractBlock.Settings settings) {
+        // Allow us to datagen and set the block loot by undoing settings.dropsNothing().
+        // This requires a transitive access widener.
+        settings.lootTableKey = null;
+
+        // Allows players to break end portal frame blocks in the same time as obsidian, by adjusting
+        // the hardness to that of obsidian but leaving the resistance like end portal frame block.
+        return settings.hardness(50.0f);
     }
 
     /*
@@ -66,7 +77,7 @@ public abstract class MixinEndPortalFrameBlock extends Block {
 
             MinecraftServer server = world.getServer();
             if (server != null) {
-                ObtainableEndServerNetworking.sendGlobalEvent(server, ObtainableEnd.END_FRAME_COMPLETE_PACKET_ID);
+                ObtainableEndServerNetworking.sendEndFrameCompleteEvent(server);
             }
 
             break;
@@ -93,9 +104,10 @@ public abstract class MixinEndPortalFrameBlock extends Block {
             return;
         }
 
+        BlockPos target;
         for (int movePrimary = 1; movePrimary <= 3; ++movePrimary) {
             for (int moveSecondary = -2; moveSecondary <= 2; ++moveSecondary) {
-                BlockPos target = pos.offset(primary, movePrimary).offset(secondary, moveSecondary);
+                target = pos.offset(primary, movePrimary).offset(secondary, moveSecondary);
 
                 if (world.getBlockState(target).isOf(Blocks.END_PORTAL)) {
                     world.breakBlock(target, false);
