@@ -15,7 +15,8 @@ Currently implemented features:
 * Allow players to break End Portal Frame pieces (slowly, like Obsidian).
 * Break associated End Portal blocks when an End Portal Frame piece is broken.
 * Make End Portal Frames easier to place by correcting orientation when complete.
-* Generate a global sound indicating a new End Portal Frame has been completed.
+* Configurably, generate a global sound indicating a new End Portal Frame has been completed.
+* Configurably, make End Portal Frame pieces breakable by the Wither.
 
 ## What might Obtainable End do eventually?
 Currently planned features:
