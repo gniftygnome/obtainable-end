@@ -30,7 +30,7 @@ public class ObtainableEndRecipeProvider extends FabricRecipeProvider {
                         .input('I', Items.ENDER_EYE)
                         .input('S', Items.NETHER_STAR)
                         .criterion("has_end_stone", InventoryChangedCriterion.Conditions.items(Items.END_STONE))
-                        .offerTo(exporter, "end_portal_frame");
+                        .offerTo(exporter);
             }
         };
     }
