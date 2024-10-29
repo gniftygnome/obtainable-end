@@ -4,7 +4,10 @@ import net.gnomecraft.obtainableend.net.ObtainableEndServerNetworking;
 import net.minecraft.block.*;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3i;
@@ -16,6 +19,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 import java.util.Map;
+import java.util.Optional;
 
 @Mixin(EndPortalFrameBlock.class)
 public abstract class MixinEndPortalFrameBlock extends Block {
@@ -42,8 +46,7 @@ public abstract class MixinEndPortalFrameBlock extends Block {
     @ModifyArg(method="<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/Block;<init>(Lnet/minecraft/block/AbstractBlock$Settings;)V"))
     private static AbstractBlock.Settings obtainableend$breakableFrames(AbstractBlock.Settings settings) {
         // Allow us to datagen and set the block loot by undoing settings.dropsNothing().
-        // This requires a transitive access widener.
-        settings.lootTableKey = null;
+        settings.lootTable(Optional.of(RegistryKey.of(RegistryKeys.LOOT_TABLE, Identifier.ofVanilla("blocks/end_portal_frame"))));
 
         // Allows players to break end portal frame blocks in the same time as obsidian, by adjusting
         // the hardness to that of obsidian but leaving the resistance like end portal frame block.
