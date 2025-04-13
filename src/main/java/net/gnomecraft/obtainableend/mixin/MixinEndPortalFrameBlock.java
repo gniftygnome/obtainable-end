@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -91,12 +92,12 @@ public abstract class MixinEndPortalFrameBlock extends Block {
      * When an end portal frame piece is broken, try to break any associated end portal blocks.
      */
     @Override
-    public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
+    public void onStateReplaced(BlockState state, ServerWorld world, BlockPos pos, boolean moved) {
         Direction primary = state.get(EndPortalFrameBlock.FACING);
         Direction secondary = primary.rotateClockwise(Direction.Axis.Y);
 
-        super.onStateReplaced(state, world, pos, newState, moved);
-        newState = world.getBlockState(pos);
+        super.onStateReplaced(state, world, pos, moved);
+        BlockState newState = world.getBlockState(pos);
 
         if (    newState != null &&
                 newState.isOf(Blocks.END_PORTAL_FRAME) &&
