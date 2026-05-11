@@ -11,10 +11,12 @@ import net.minecraft.loot.condition.BlockStatePropertyLootCondition;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.predicate.StatePredicate;
 import net.minecraft.registry.RegistryWrapper;
+import org.jspecify.annotations.NullMarked;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+@NullMarked
 public class ObtainableEndBlockLootTableProvider extends FabricBlockLootTableProvider {
     protected ObtainableEndBlockLootTableProvider(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
         super(dataOutput, registriesFuture);
