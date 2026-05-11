@@ -2,37 +2,37 @@ package net.gnomecraft.obtainableend.data;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
-import net.minecraft.advancement.criterion.InventoryChangedCriterion;
-import net.minecraft.data.recipe.RecipeExporter;
-import net.minecraft.data.recipe.RecipeGenerator;
-import net.minecraft.item.Items;
-import net.minecraft.recipe.book.RecipeCategory;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.util.Identifier;
+import net.minecraft.advancements.criterion.InventoryChangeTrigger;
+import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.world.item.Items;
+import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.resources.Identifier;
 import org.jspecify.annotations.NullMarked;
 
 import java.util.concurrent.CompletableFuture;
 
 @NullMarked
 public class ObtainableEndRecipeProvider extends FabricRecipeProvider {
-    public ObtainableEndRecipeProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+    public ObtainableEndRecipeProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
     }
 
     @Override
-    protected RecipeGenerator getRecipeGenerator(RegistryWrapper.WrapperLookup registryLookup, RecipeExporter exporter) {
-        return new RecipeGenerator(registryLookup, exporter) {
+    protected RecipeProvider createRecipeProvider(HolderLookup.Provider registryLookup, RecipeOutput exporter) {
+        return new RecipeProvider(registryLookup, exporter) {
             @Override
-            public void generate() {
-                createShaped(RecipeCategory.DECORATIONS, Items.END_PORTAL_FRAME, 4)
+            public void buildRecipes() {
+                shaped(RecipeCategory.DECORATIONS, Items.END_PORTAL_FRAME, 4)
                         .pattern("IEI")
                         .pattern("ESE")
                         .pattern("IEI")
-                        .input('E', Items.END_STONE)
-                        .input('I', Items.ENDER_EYE)
-                        .input('S', Items.NETHER_STAR)
-                        .criterion("has_end_stone", InventoryChangedCriterion.Conditions.items(Items.END_STONE))
-                        .offerTo(exporter);
+                        .define('E', Items.END_STONE)
+                        .define('I', Items.ENDER_EYE)
+                        .define('S', Items.NETHER_STAR)
+                        .unlockedBy("has_end_stone", InventoryChangeTrigger.TriggerInstance.hasItems(Items.END_STONE))
+                        .save(output);
             }
         };
     }

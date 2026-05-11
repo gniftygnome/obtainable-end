@@ -1,28 +1,30 @@
 package net.gnomecraft.obtainableend.net;
 
 import net.gnomecraft.obtainableend.ObtainableEnd;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.packet.CustomPayload;
-import net.minecraft.util.Identifier;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.Identifier;
+import org.jspecify.annotations.NullMarked;
 
 import java.util.UUID;
 
-public record EndFrameCompletionS2CPacket(UUID profile) implements CustomPayload {
-    public static final CustomPayload.Id<EndFrameCompletionS2CPacket> ID = new Id<>(Identifier.of(ObtainableEnd.MOD_ID, "end_frame_complete"));
-    public static final PacketCodec<RegistryByteBuf, EndFrameCompletionS2CPacket> CODEC = CustomPayload.codecOf(EndFrameCompletionS2CPacket::write, EndFrameCompletionS2CPacket::new);
+@NullMarked
+public record EndFrameCompletionS2CPacket(UUID profile) implements CustomPacketPayload {
+    public static final CustomPacketPayload.Type<EndFrameCompletionS2CPacket> ID = new Type<>(Identifier.fromNamespaceAndPath(ObtainableEnd.MOD_ID, "end_frame_complete"));
+    public static final StreamCodec<RegistryFriendlyByteBuf, EndFrameCompletionS2CPacket> CODEC = CustomPacketPayload.codec(EndFrameCompletionS2CPacket::write, EndFrameCompletionS2CPacket::new);
 
-    public EndFrameCompletionS2CPacket(RegistryByteBuf buf) {
-        this(buf.readUuid());
+    public EndFrameCompletionS2CPacket(RegistryFriendlyByteBuf buf) {
+        this(buf.readUUID());
     }
 
-    public void write(PacketByteBuf buf) {
-        buf.writeUuid(profile);
+    public void write(FriendlyByteBuf buf) {
+        buf.writeUUID(profile);
     }
 
     @Override
-    public Id<? extends CustomPayload> getId() {
+    public Type<? extends CustomPacketPayload> type() {
         return ID;
     }
 }

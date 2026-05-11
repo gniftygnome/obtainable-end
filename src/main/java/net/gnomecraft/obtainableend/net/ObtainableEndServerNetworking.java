@@ -3,7 +3,7 @@ package net.gnomecraft.obtainableend.net;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.level.ServerPlayer;
 
 public class ObtainableEndServerNetworking {
     public static void init() {
@@ -11,9 +11,9 @@ public class ObtainableEndServerNetworking {
     }
 
     public static void sendEndFrameCompleteEvent(MinecraftServer server) {
-        for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
+        for (ServerPlayer player : server.getPlayerList().getPlayers()) {
             if (ServerPlayNetworking.canSend(player, EndFrameCompletionS2CPacket.ID)) {
-                ServerPlayNetworking.send(player, new EndFrameCompletionS2CPacket(player.getUuid()));
+                ServerPlayNetworking.send(player, new EndFrameCompletionS2CPacket(player.getUUID()));
             }
         }
     }
