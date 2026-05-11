@@ -1,0 +1,9 @@
+{
+  "modmenu.descriptionTranslation.obtainable_end": "Makes end portals obtainable in survival.",
+
+  "subtitles.obtainable_end.end_frame_complete_sound": "End Portal frame completed",
+
+  "text.autoconfig.obtainable_end.title": "Obtainable End: Configuration",
+  "text.autoconfig.obtainable_end.option.frameIsWitherImmune": "Are frame pieces immune to the Wither?",
+  "text.autoconfig.obtainable_end.option.completionSound": "Play frame completion sound?"
+}

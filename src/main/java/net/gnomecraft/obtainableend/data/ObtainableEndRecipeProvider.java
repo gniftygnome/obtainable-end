@@ -1,6 +1,6 @@
 package net.gnomecraft.obtainableend.data;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.advancements.criterion.InventoryChangeTrigger;
 import net.minecraft.data.recipes.RecipeOutput;
@@ -15,7 +15,7 @@ import java.util.concurrent.CompletableFuture;
 
 @NullMarked
 public class ObtainableEndRecipeProvider extends FabricRecipeProvider {
-    public ObtainableEndRecipeProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+    public ObtainableEndRecipeProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
     }
 

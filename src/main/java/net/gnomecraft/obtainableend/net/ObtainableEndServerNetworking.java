@@ -7,7 +7,7 @@ import net.minecraft.server.level.ServerPlayer;
 
 public class ObtainableEndServerNetworking {
     public static void init() {
-        PayloadTypeRegistry.playS2C().register(EndFrameCompletionS2CPacket.ID, EndFrameCompletionS2CPacket.CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(EndFrameCompletionS2CPacket.ID, EndFrameCompletionS2CPacket.CODEC);
     }
 
     public static void sendEndFrameCompleteEvent(MinecraftServer server) {

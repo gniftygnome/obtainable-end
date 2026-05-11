@@ -12,7 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ObtainableEnd implements ModInitializer {
-	public static final String MOD_ID = "obtainable-end";
+	public static final String MOD_ID = "obtainable_end";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
 	public static final Identifier END_FRAME_COMPLETE_SOUND_ID = Identifier.fromNamespaceAndPath(MOD_ID, "end_frame_complete_sound");

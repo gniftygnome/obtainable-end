@@ -1,7 +1,7 @@
 package net.gnomecraft.obtainableend.data;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootSubProvider;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.EndPortalFrameBlock;
 import net.minecraft.world.item.Items;
@@ -17,8 +17,8 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 @NullMarked
-public class ObtainableEndBlockLootTableProvider extends FabricBlockLootTableProvider {
-    protected ObtainableEndBlockLootTableProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+public class ObtainableEndBlockLootTableProvider extends FabricBlockLootSubProvider {
+    protected ObtainableEndBlockLootTableProvider(FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(dataOutput, registriesFuture);
     }
 
@@ -43,5 +43,10 @@ public class ObtainableEndBlockLootTableProvider extends FabricBlockLootTablePro
                         )
                 )
         );
+    }
+
+    @Override
+    public String getName() {
+        return "Obtainable End Block Loot Tables";
     }
 }

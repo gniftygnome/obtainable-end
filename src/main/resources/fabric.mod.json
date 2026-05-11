@@ -1,6 +1,6 @@
 {
 	"schemaVersion": 1,
-	"id": "obtainable-end",
+	"id": "obtainable_end",
 	"version": "${version}",
 	"name": "Obtainable End",
 	"description": "Make end portals obtainable in survival",
@@ -12,7 +12,7 @@
 		"sources": "https://github.com/gniftygnome/obtainable-end"
 	},
 	"license": "MIT",
-	"icon": "assets/obtainable-end/icon.png",
+	"icon": "assets/obtainable_end/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"client": [
@@ -28,17 +28,17 @@
 			"net.gnomecraft.obtainableend.config.ObtainableEndModMenuApiImpl"
 		]
 	},
-	"accessWidener": "obtainable-end.accesswidener",
+	"accessWidener": "obtainable_end.accesswidener",
 	"mixins": [
-      "obtainable-end.mixins.json",
+		"obtainable_end.mixins.json",
 		{
-			"config": "obtainable-end.client.mixins.json",
+			"config": "obtainable_end.client.mixins.json",
 			"environment": "client"
 		}
 	],
 	"depends": {
 		"fabricloader": ">=0.15.3",
-		"minecraft": ">=1.21.5 <1.22",
+		"minecraft": ">=26.1-",
 		"fabric-api": "*",
 		"cloth-config": "*"
 	}

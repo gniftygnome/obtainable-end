@@ -1,0 +1,8 @@
+{
+  "end_frame_complete_sound": {
+    "subtitle": "subtitles.obtainable_end.end_frame_complete_sound",
+    "sounds": [
+      "obtainable_end:end_frame_complete_sound"
+    ]
+  }
+}
