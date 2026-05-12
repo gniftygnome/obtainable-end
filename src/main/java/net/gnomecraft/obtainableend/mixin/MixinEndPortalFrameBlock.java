@@ -65,8 +65,8 @@ public abstract class MixinEndPortalFrameBlock extends Block {
      * If it is part of a complete frame, reorient all frame pieces to make the frame valid.
      */
     @Override
-    public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
-        super.setPlacedBy(world, pos, state, placer, itemStack);
+    public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
+        super.setPlacedBy(level, pos, state, placer, itemStack);
 
         outer: for (Vec3i centerOffset : PORTAL_POSITIONS.keySet()) {
             BlockPos center = pos.offset(centerOffset);
@@ -74,7 +74,7 @@ public abstract class MixinEndPortalFrameBlock extends Block {
             for (Vec3i frameOffset : PORTAL_POSITIONS.keySet()) {
                 BlockPos frame = center.offset(frameOffset);
 
-                if (!world.getBlockState(frame).is(Blocks.END_PORTAL_FRAME)) {
+                if (!level.getBlockState(frame).is(Blocks.END_PORTAL_FRAME)) {
                     continue outer;
                 }
             }
@@ -82,10 +82,10 @@ public abstract class MixinEndPortalFrameBlock extends Block {
             for (Vec3i frameOffset : PORTAL_POSITIONS.keySet()) {
                 BlockPos frame = center.offset(frameOffset);
 
-                world.setBlock(frame, world.getBlockState(frame).setValue(EndPortalFrameBlock.FACING, PORTAL_POSITIONS.get(frameOffset)), 2);
+                level.setBlock(frame, level.getBlockState(frame).setValue(EndPortalFrameBlock.FACING, PORTAL_POSITIONS.get(frameOffset)), 2);
             }
 
-            MinecraftServer server = world.getServer();
+            MinecraftServer server = level.getServer();
             if (server != null) {
                 ObtainableEndServerNetworking.sendEndFrameCompleteEvent(server);
             }
@@ -98,12 +98,12 @@ public abstract class MixinEndPortalFrameBlock extends Block {
      * When an end portal frame piece is broken, try to break any associated end portal blocks.
      */
     @Override
-    public void affectNeighborsAfterRemoval(BlockState state, ServerLevel world, BlockPos pos, boolean moved) {
+    public void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean moved) {
         Direction primary = state.getValue(EndPortalFrameBlock.FACING);
         Direction secondary = primary.getClockWise(Direction.Axis.Y);
 
-        super.affectNeighborsAfterRemoval(state, world, pos, moved);
-        BlockState newState = world.getBlockState(pos);
+        super.affectNeighborsAfterRemoval(state, level, pos, moved);
+        BlockState newState = level.getBlockState(pos);
 
         if (    newState.is(Blocks.END_PORTAL_FRAME) &&
                 newState.getValue(EndPortalFrameBlock.HAS_EYE) &&
@@ -118,8 +118,8 @@ public abstract class MixinEndPortalFrameBlock extends Block {
             for (int moveSecondary = -2; moveSecondary <= 2; ++moveSecondary) {
                 target = pos.relative(primary, movePrimary).relative(secondary, moveSecondary);
 
-                if (world.getBlockState(target).is(Blocks.END_PORTAL)) {
-                    world.destroyBlock(target, false);
+                if (level.getBlockState(target).is(Blocks.END_PORTAL)) {
+                    level.destroyBlock(target, false);
                 }
             }
         }
